@@ -1,0 +1,235 @@
+body {
+    margin: 0;
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    background: #eefaf3; /* green hospital tone */
+}
+
+/* CONTAINER */
+.chat-container {
+    max-width: 700px;
+    margin: 40px auto;
+    background: white;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+
+    background: linear-gradient(180deg, #ffffff, #f3fff7);
+}
+
+/* HEADER */
+.header {
+    padding: 15px;
+    background: #2d6a4f;
+    color: white;
+    font-size: 18px;
+    border-radius: 15px 15px 0 0;
+}
+
+/* CHAT BOX */
+.chat-box {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+/* MESSAGES */
+.message {
+    max-width: 75%;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 10px;
+    animation: fadeIn 0.3s ease-in-out;
+    transition: 0.2s;
+}
+
+.message:hover {
+    transform: scale(1.02);
+}
+
+.user {
+    background: #2d6a4f;
+    color: white;
+    margin-left: auto;
+}
+
+.bot {
+    background: #d8f3dc;
+}
+
+/* INPUT AREA */
+.input-area {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+input:focus {
+    outline: none;
+    border-color: #2d6a4f;
+    box-shadow: 0 0 5px rgba(45,106,79,0.5);
+}
+
+button {
+    margin-left: 10px;
+    padding: 10px 15px;
+    border: none;
+    background: #2d6a4f;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #1b4332;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* RISK COLORS */
+.risk {
+    font-weight: bold;
+}
+
+.risk.low { color: #2d6a4f; }
+.risk.medium { color: #eab308; }
+.risk.high { color: #dc2626; }
+
+.alert {
+    color: red;
+    font-weight: bold;
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(5px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+
+    /* transparent green gradient */
+    background: linear-gradient(
+        90deg,
+        rgba(45,106,79,0.95),
+        rgba(27,67,50,0.85)
+    );
+
+    backdrop-filter: blur(10px);
+    color: white;
+}
+
+/* NAV LINKS */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    letter-spacing: 1px;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background: white;
+    left: 0;
+    bottom: -4px;
+    transition: 0.3s;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* AUTH LINKS */
+.auth-links a {
+    margin-left: 15px;
+    color: white;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    background: rgba(255,255,255,0.2);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+.auth-links a:hover {
+    background: white;
+    color: #2d6a4f;
+}
+
+/* ===== HEADER TITLE ===== */
+.page-header {
+    text-align: center;
+    padding: 30px 20px 10px;
+}
+
+.title {
+    font-size: 42px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #1b4332;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    animation: fadeIn 1s ease;
+}
+
+/* SUBTITLE WITH TYPING EFFECT */
+.subtitle {
+    color: #2d6a4f;
+    font-size: 15px;
+    max-width: 700px;
+    margin: 10px auto;
+    border-right: 2px solid #2d6a4f;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* typing animation */
+.typing {
+    animation: typing 6s steps(80, end), blink 0.8s infinite;
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
+/* ===== RESULT CARD ===== */
+.result-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 12px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+}

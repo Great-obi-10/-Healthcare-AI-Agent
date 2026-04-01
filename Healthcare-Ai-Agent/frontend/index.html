@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Healthcare AI Assistant</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+
+    <!-- ✅ FONT UPGRADE -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- (Removed old dark background override to match green theme) -->
+</head>
+
+<body>
+
+<!-- ✅ NAVBAR -->
+<nav class="navbar">
+    <div class="logo">🏥 Health AI</div>
+
+    <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+
+    <div class="auth-links">
+        <a href="#">Login</a>
+        <a href="#">Signup</a>
+    </div>
+</nav>
+
+<!-- ✅ HEADER SECTION (UPGRADED + TYPING EFFECT) -->
+<div class="page-header">
+    <h1 class="title">Healthcare AI Assistant</h1>
+
+    <p class="subtitle typing">
+        An intelligent healthcare system designed to analyze symptoms, detect possible conditions, evaluate risk levels, and provide real-time medical guidance to help you make informed health decisions.
+    </p>
+</div>
+
+<!-- CHAT UI -->
+<div class="chat-container">
+    <div class="header">
+        🏥 Healthcare AI Assistant
+    </div>
+
+    <div id="chat-box" class="chat-box"></div>
+
+    <div class="input-area">
+        <input id="user-input" placeholder="Describe your symptoms..." />
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<!-- SCRIPT (UNCHANGED) -->
+<script>
+function addMessage(text, type) {
+    const chatBox = document.getElementById("chat-box");
+    const msg = document.createElement("div");
+    msg.className = "message " + type;
+    msg.innerHTML = text;
+    chatBox.appendChild(msg);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+async function sendMessage() {
+    const input = document.getElementById("user-input");
+    const text = input.value.trim();
+
+    if (!text) return;
+
+    addMessage(text, "user");
+    input.value = "";
+
+    addMessage("🤖 AI is analyzing...", "bot");
+
+    try {
+        const response = await fetch("/analyze-symptoms", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ text })
+        });
+
+        const data = await response.json();
+
+        const chatBox = document.getElementById("chat-box");
+
+        chatBox.lastChild.remove();
+
+        const result = `
+            <div class="result-card">
+                <strong>🧠 Analysis</strong><br><br>
+
+                <strong>Symptoms:</strong><br>
+                ${data.data.symptoms_detected.join(", ")}<br><br>
+
+                <strong>Conditions:</strong><br>
+                ${data.data.possible_conditions.join(", ")}<br><br>
+
+                <strong>Risk:</strong> <span class="risk">${data.data.risk_level}</span><br><br>
+
+                <strong>Confidence:</strong> ${data.data.confidence}<br><br>
+
+                <strong>Advice:</strong><br>
+                ${data.data.advice}<br><br>
+
+                ${data.alert ? `<span class="alert">${data.alert}</span>` : ""}
+            </div>
+        `;
+
+        addMessage(result, "bot");
+
+    } catch (error) {
+        console.error(error);
+        addMessage("❌ Error connecting to server", "bot");
+    }
+}
+</script>
+
+</body>
+</html>
